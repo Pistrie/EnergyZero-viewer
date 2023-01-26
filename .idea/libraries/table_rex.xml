@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="table_rex" type="mix">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/table_rex/lib" />
+      <root url="file://$PROJECT_DIR$/deps/table_rex/lib" />
+    </SOURCES>
+  </library>
+</component>
