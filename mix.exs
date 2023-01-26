@@ -7,14 +7,18 @@ defmodule EnergyZeroViewer.MixProject do
       version: "0.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      escript: escript()
     ]
+  end
+
+  def escript do
+    [main_module: EnergyZeroViewer]
   end
 
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: {EnergyZeroViewer, []},
       extra_applications: [:logger]
     ]
   end

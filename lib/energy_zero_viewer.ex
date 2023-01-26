@@ -1,12 +1,29 @@
 defmodule EnergyZeroViewer do
-  def start(_type, _args) do
-    data = get_data()
+  def main(args \\ []) do
+    {opts, _} =
+      args
+      |> OptionParser.parse!(switches: [usage: :string])
+
+    usage_type =
+      case Keyword.get(opts, :usage) do
+        "electricity" ->
+          1
+
+        "gas" ->
+          3
+
+        _ ->
+          IO.puts("please pass either electricity or gas with the --usage flag")
+          exit({:shutdown, 1})
+      end
+
+    data = get_data(usage_type)
     table = create_table(data)
 
-    Task.start(fn -> IO.puts(table) end)
+    IO.puts(table)
   end
 
-  defp get_data do
+  defp get_data(usage_type) do
     # https://api.energyzero.nl/v1/energyprices
     # ?fromDate=2023-01-25T23%3A00%3A00.000Z
     # &tillDate=2023-01-26T22%3A59%3A59.999Z
@@ -21,7 +38,7 @@ defmodule EnergyZeroViewer do
       fromDate: fromDate,
       tillDate: tillDate,
       interval: 4,
-      usageType: 1,
+      usageType: usage_type,
       inclBtw: true
     }
 
@@ -39,6 +56,7 @@ defmodule EnergyZeroViewer do
     rows =
       Enum.map(data, fn data_point ->
         price = Map.get(data_point, "price")
+
         {:ok, time, _} = Map.get(data_point, "readingDate") |> DateTime.from_iso8601()
 
         [

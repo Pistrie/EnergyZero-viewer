@@ -1,21 +1,9 @@
 # EnergyZeroViewer
 
-**TODO: Add description**
-
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `energy_zero_viewer` to your list of dependencies in `mix.exs`:
+Run `mix escript.build`. This will create the `energy_zero_viewer` binary.
 
-```elixir
-def deps do
-  [
-    {:energy_zero_viewer, "~> 0.1.0"}
-  ]
-end
-```
+## Usage
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/energy_zero_viewer>.
-
+Run either `./energy_zero_viewer --usage electricity` or `./energy_zero_viewer --usage gas`.
