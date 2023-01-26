@@ -1,9 +1,9 @@
 defmodule EnergyZeroViewer do
-  def execute do
+  def start(_type, _args) do
     data = get_data()
     table = create_table(data)
 
-    IO.puts(table)
+    Task.start(fn -> IO.puts(table) end)
   end
 
   defp get_data do
@@ -33,7 +33,7 @@ defmodule EnergyZeroViewer do
   defp create_table(energy_data) do
     {:ok, fromDate, _} = Map.get(energy_data, "fromDate") |> DateTime.from_iso8601()
     title = "#{Calendar.strftime(fromDate, "%d %B %Y")}"
-    header = ["price", "time"]
+    header = ["Time", "Price"]
     data = Map.get(energy_data, "Prices")
 
     rows =
@@ -42,8 +42,8 @@ defmodule EnergyZeroViewer do
         {:ok, time, _} = Map.get(data_point, "readingDate") |> DateTime.from_iso8601()
 
         [
-          time.hour,
-          price |> Float.round(2)
+          Calendar.strftime(time, "%H:%M"),
+          "€#{price |> Float.round(2)}"
         ]
       end)
 
