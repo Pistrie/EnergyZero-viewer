@@ -1,3 +1,6 @@
+# application binary
+/energy_zero_viewer
+
 # The directory Mix will write compiled artifacts to.
 /_build/
 
